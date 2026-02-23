@@ -1,0 +1,80 @@
+% HW5 Report Outline
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+\title{HW5: KNN Classification}
+\author{Thomas Meltesen}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+% Brief overview of the assignment and objectives
+
+\section{Data Loading}
+% a) Loading the HW05_data.csv dataset
+
+\section{Label Encoding}
+% b) Converting categorical labels to numeric using LabelEncoder
+
+\section{Data Splitting}
+% c) Splitting data into development and test sets
+
+\section{KNN Classification Approach}
+\subsection{Preprocessing}
+% Preprocessing steps
+\subsection{Model Development}
+% KNN model setup
+\subsection{Hyperparameter Optimization}
+% Searching for optimal K
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{knn_error_rates.png}
+	\caption{Error rates for different K values in KNN classifier.}
+	\label{fig:knn_error_rates}
+\end{figure}
+\subsection{Cross-Validation}
+% Cross-validation procedure
+
+\section{Performance Assessment}
+% d) Performance metrics and evaluation
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{knn_confusion_matrix.png}
+	\caption{Confusion matrix for KNN classifier on test set.}
+	\label{fig:knn_confusion_matrix}
+\end{figure}
+
+\begin{table}[H]
+	\centering
+	\caption{Cross-Validation Results (5 folds)}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Fold} & \textbf{Accuracy} \\
+		\hline
+		1 & 0.8953 \\
+		2 & 0.8824 \\
+		3 & 0.9765 \\
+		4 & 0.9412 \\
+		5 & 0.9059 \\
+		\hline
+		\textbf{Mean} & 0.9202 \\
+		\textbf{Std} & 0.0342 \\
+		\hline
+	\end{tabular}
+	\label{tab:cv_results}
+\end{table}
+
+\section{Results and Discussion}
+% e) Discussion of results, rationale for design decisions
+
+\section{Conclusion}
+% Summary and final thoughts
+
+\end{document}
