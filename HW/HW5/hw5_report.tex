@@ -42,7 +42,26 @@
 % Cross-validation procedure
 
 \section{Performance Assessment}
-% d) Performance metrics and evaluation
+
+d) Performance metrics and evaluation
+
+\begin{table}[H]
+	\centering
+	\caption{Classification Report for KNN Classifier}
+	\begin{tabular}{lcccc}
+		\hline
+		& Precision & Recall & F1-score & Support \\
+		\hline
+		Benign & 0.96 & 1.00 & 0.98 & 90 \\
+		Malignant & 1.00 & 0.92 & 0.96 & 53 \\
+		\hline
+		Accuracy & & & 0.97 & 143 \\
+		Macro avg & 0.98 & 0.96 & 0.97 & 143 \\
+		Weighted avg & 0.97 & 0.97 & 0.97 & 143 \\
+		\hline
+	\end{tabular}
+	\label{tab:classification_report}
+\end{table}
 
 \begin{figure}[H]
 	\centering
