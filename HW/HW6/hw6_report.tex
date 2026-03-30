@@ -15,7 +15,7 @@
 \maketitle
 
 \section{Goal}
-This report presents the process and results of comparing multiple classification models on a given dataset. The workflow includes loading and preprocessing the data, training and evaluating classifiers, ranking their performance, and drawing conclusions based on the results.
+Presents the process and results of comparing multiple classification models on a given dataset. The workflow includes loading and preprocessing the data, training and evaluating classifiers, ranking their performance, and drawing conclusions based on the results.
 
 \section{The Dataset}
 \begin{itemize}
@@ -142,7 +142,7 @@ Logistic Regression  & 0.9323         & 0.8444        \\
     \caption{Confusion matrices for LDA, QDA, and Logistic Regression on the test set.}
     \label{fig:confusion_matrices}
 \end{figure}
-    \item The classification reports and confusion matrices for each classifier back this assumption. Given, we do have an imbalance between our samples, gives LDA a greater score. Similarly, with only \texttt{<}20 samples for support in each class. It doesn't allow for accurate class representation which could ultimately throw the model in a different direction and not give accurate performance readings. So overall, my choice for best classifier would be LDA in this case due to the unbiased test evaluation, it's weighted F1-Score and overall performance result.
+    \item The classification reports and confusion matrices for each classifier back this assumption. Given, we do have an imbalance between our samples, gives LDA a greater score. Similarly, with only \texttt{<}20 samples for support in each class. It doesn't allow for accurate class representation which could ultimately throw the model in a different direction and not give accurate performance readings. So overall, my choice for best classifier would be LDA in this case due to the unbiased test evaluation, it's weighted F1-Score and overall performance result shown in the tables below.
     % LDA Classification Report
 \begin{table}[h!]
 \centering
