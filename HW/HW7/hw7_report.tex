@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title {HW7 Report: [Your Title Here]}
+\author{Thomas Meltesen}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Goal}
+Briefly describe the goal of this homework and what the report will cover.
+
+\section{The Dataset}
+\begin{itemize}
+    \item Describe the dataset used (features, target, sample size, etc.).
+    \item Mention how the data was imported.
+    \item Optionally, include a table for class distribution if classification.
+\end{itemize}
+
+\section{Pre-processing}
+\begin{itemize}
+    \item Describe any data cleaning, splitting, scaling, or encoding performed.
+    \item Optionally, include tables for train/test splits or class distributions.
+\end{itemize}
+
+\section{Modeling / Methods}
+\begin{itemize}
+    \item List the models or methods compared or used.
+    \item Briefly describe the evaluation approach (e.g., cross-validation, metrics).
+\end{itemize}
+
+\section{Results}
+\begin{itemize}
+    \item Summarize the main results (e.g., accuracy, F1-score, etc.).
+    \item Optionally, include tables or figures for results, such as confusion matrices or classification reports.
+    \item You may include figures using \texttt{\includegraphics} if you generate plots.
+\end{itemize}
+
+\subsection{Model Performance Comparison}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lccccc}
+\hline
+Model & Accuracy & Precision (Macro) & Recall (Macro) & F1 Score (Macro) & ROC-AUC \\
+\hline
+DecisionTreeClassifier & 0.9994 & 0.9498 & 0.8648 & 0.9028 & 0.8614 \\
+RandomForestClassifier & 0.9995 & 0.9863 & 0.8648 & 0.9169 & 0.9362 \\
+GradientBoostingClassifier & 0.9994 & 0.9768 & 0.8513 & 0.9045 & 0.9483 \\
+\hline
+\end{tabular}
+\caption{Model performance comparison on the test set.}
+\end{table}
+
+\subsection{Y Train/Test Proportions}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\hline
+ & Class 0 & Class 1 \\
+\hline
+Train & 0.998273 & 0.001727 \\
+Test & 0.998268 & 0.001732 \\
+\hline
+\end{tabular}
+\caption{Proportion of classes in train and test sets.}
+\end{table}
+
+\subsection{Classification Reports}
+\textbf{DecisionTreeClassifier}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+ & Precision & Recall & F1-score & Support \\
+\hline
+0 & 1.00 & 1.00 & 1.00 & 85295 \\
+1 & 0.90 & 0.73 & 0.81 & 148 \\
+\hline
+Accuracy & & & 1.00 & 85443 \\
+Macro avg & 0.95 & 0.86 & 0.90 & 85443 \\
+Weighted avg & 1.00 & 1.00 & 1.00 & 85443 \\
+\hline
+\end{tabular}
+\caption{Classification report for DecisionTreeClassifier.}
+\end{table}
+
+\textbf{RandomForestClassifier}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+ & Precision & Recall & F1-score & Support \\
+\hline
+0 & 1.00 & 1.00 & 1.00 & 85295 \\
+1 & 0.97 & 0.73 & 0.83 & 148 \\
+\hline
+Accuracy & & & 1.00 & 85443 \\
+Macro avg & 0.99 & 0.86 & 0.92 & 85443 \\
+Weighted avg & 1.00 & 1.00 & 1.00 & 85443 \\
+\hline
+\end{tabular}
+\caption{Classification report for RandomForestClassifier.}
+\end{table}
+
+\textbf{GradientBoostingClassifier}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+ & Precision & Recall & F1-score & Support \\
+\hline
+0 & 1.00 & 1.00 & 1.00 & 85295 \\
+1 & 0.95 & 0.70 & 0.81 & 148 \\
+\hline
+Accuracy & & & 1.00 & 85443 \\
+Macro avg & 0.98 & 0.85 & 0.90 & 85443 \\
+Weighted avg & 1.00 & 1.00 & 1.00 & 85443 \\
+\hline
+\end{tabular}
+\caption{Classification report for GradientBoostingClassifier.}
+\end{table}
+
+\section{Conclusion}
+Summarize the findings and any observations. Discuss model selection or insights.
+
+\section{Disclaimers}
+\begin{itemize}
+    \item All code and analysis are available in the Jupyter notebook (\texttt{hw7.ipynb}).
+    \item This LaTeX document was formatted and generated with AI assistance. All data, images, and text were written by me to ensure proper formatting and readability.
+    \item Copilot was used for code auto-completion where appropriate.
+\end{itemize}
+
+\end{document}
