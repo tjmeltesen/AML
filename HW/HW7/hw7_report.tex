@@ -3,9 +3,10 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{placeins} % Add this to your preamble
 \geometry{margin=1in}
 
-\title {HW7 Report: [Your Title Here]}
+\title {HW7 Report: Tree Classifiers}
 \author{Thomas Meltesen}
 \date{\today}
 
@@ -14,64 +15,138 @@
 \maketitle
 
 \section{Goal}
-Briefly describe the goal of this homework and what the report will cover.
+Experiment with Decision Tree, Random Forest, and Gradient Boosting
+classification methods using Python in combination with in lecture discussed ML, data processing, and data
+visualization packages.
 
 \section{The Dataset}
 \begin{itemize}
-    \item Describe the dataset used (features, target, sample size, etc.).
-    \item Mention how the data was imported.
-    \item Optionally, include a table for class distribution if classification.
+    \item This data set contains features labeled X1 to X30 with column Y as our predictor.
+    \item This data was loaded via pandas from the csv file provided for this experiment
+    \item The dataset is heavily imbalanced, thus will need to straify the data when splitting to ensure that the distribution of classes is maintained in both the development and testing sets. Provided below is the class distribution's normalized and not for the development and test set
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Set} & \textbf{Class 0} & \textbf{Class 1} \\
+\hline
+Development & 199,020 & 344 \\
+Test        & 85,295  & 148 \\
+\hline
+\end{tabular}
+\caption{Class distribution for development and test sets}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Set} & \textbf{Class 0 } & \textbf{Class 1} \\
+\hline
+Development & 0.998275 & 0.001725 \\
+Test        & 0.998268 & 0.001732 \\
+\hline
+\end{tabular}
+\caption{Class proportions for development and test sets}
+\end{table}
+
+
 \end{itemize}
 
 \section{Pre-processing}
 \begin{itemize}
-    \item Describe any data cleaning, splitting, scaling, or encoding performed.
-    \item Optionally, include tables for train/test splits or class distributions.
+    \item As described before since the class distribution is heavily weighted towards the majority class. All development and test partitions were stratified to ensure consistency and equal distribution of both classes.
+    \item No scaling and or feature selection was applied in this step, scaling can actually hurt the performance of tree-based models, so I will not be applying scaling to the data for the decision tree, random forest, and gradient boosting models.
 \end{itemize}
 
 \section{Modeling / Methods}
+
+The models used in this experiment were from the \texttt{scikit-learn} package: \texttt{DecisionTreeClassifier}, \texttt{RandomForestClassifier}, and \texttt{GradientBoostingClassifier}. For each classifier, I investigated the effect of class weights on model performance, given the highly imbalanced nature of the dataset. Stratified 10-fold cross-validation was then used to ensure class proportions were preserved in each fold. The primary evaluation metric was the macro-averaged F1 score, which is suitable for imbalanced classification problems. These decisions or flow for each model were as follows:
+
+\subsection{Decision Tree Classifier}
 \begin{itemize}
-    \item List the models or methods compared or used.
-    \item Briefly describe the evaluation approach (e.g., cross-validation, metrics).
+    \item Trained a baseline \texttt{DecisionTreeClassifier} without class weighting and evaluated its performance using cross-validation.
+    \item Trained a decision tree with \texttt{class\_weight='balanced'} to address class imbalance.
+    \item Compared the cross-validation F1 scores of both models which led me to consider strictly the baseline \texttt{DecisionTreeClassifier} due to little improvement in score.
+    \item Performed a grid search to optimize hyperparameters (\texttt{max\_depth}, \texttt{min\_samples\_split}, \texttt{min\_samples\_leaf}) and selected the best model for further analysis.
+\end{itemize}
+
+\subsection{Random Forest Classifier}
+\begin{itemize}
+    \item Trained three versions of the \texttt{RandomForestClassifier}:
+    \begin{itemize}
+        \item Baseline (no class weighting)
+        \item With \texttt{class\_weight='balanced'}
+        \item With \texttt{class\_weight='balanced\_subsample'}
+    \end{itemize}
+    \item Compared their cross-validation F1 scores to assess the impact of class weighting.
+    \item The baseline random forest performed slightly better than the weighted versions.
+    \item Performed a grid search to optimize hyperparameters (\texttt{n\_estimators}, \texttt{max\_depth}, \texttt{max\_features}) and selected the best model.
+\end{itemize}
+
+\subsection{Gradient Boosting Classifier}
+\begin{itemize}
+    \item Trained a baseline \texttt{GradientBoostingClassifier} and evaluated its cross-validation F1 score.
+    \item Performed a grid search to optimize hyperparameters (\texttt{n\_estimators}, \texttt{learning\_rate}, \texttt{max\_depth}).
+    \item Selected the best model from the grid search for downstream analysis.
+\end{itemize}
+
+\subsection*{Best Model Parameters}
+For each model, I reported the cross-validation F1 scores and selected the best-performing configuration. The results I got for each model are as shown below.
+\begin{itemize}
+    \item \textbf{Decision Tree Classifier:}
+    \begin{itemize}
+        \item \texttt{max\_depth}: 5 % (fill in value from best\_params\_dt)
+        \item \texttt{min\_samples\_split}: 2 % (fill in value from best\_params\_dt)
+        \item \texttt{min\_samples\_leaf}:  1 % (fill in value from best\_params\_dt)
+    \end{itemize}
+    \item \textbf{Random Forest Classifier:}
+    \begin{itemize}
+        \item \texttt{n\_estimators}: 200% (fill in value from best\_params\_rf)
+        \item \texttt{max\_depth}: None % (fill in value from best\_params\_rf)
+        \item \texttt{max\_features}: sqrt % (fill in value from best\_params\_rf)
+    \end{itemize}
+    \item \textbf{Gradient Boosting Classifier:}
+    \begin{itemize}
+        \item \texttt{n\_estimators}: 200 % (fill in value from best\_params\_gb)
+        \item \texttt{learning\_rate}:  0.01% (fill in value from best\_params\_gb)
+        \item \texttt{max\_depth}:  5% (fill in value from best\_params\_gb)
+    \end{itemize}
 \end{itemize}
 
 \section{Results}
+\subsection{Analysis}
 \begin{itemize}
-    \item Summarize the main results (e.g., accuracy, F1-score, etc.).
-    \item Optionally, include tables or figures for results, such as confusion matrices or classification reports.
-    \item You may include figures using \texttt{\includegraphics} if you generate plots.
-\end{itemize}
-
-\subsection{Model Performance Comparison}
-\begin{table}[h!]
+    \item When training on the whole development and then testing on the test set with the best model configurations, the results I got for each metric are as shown below. For most metrics I consider the macro case to give more emphasis on the minority class.
+    \begin{table}[h!]
 \centering
 \begin{tabular}{lccccc}
 \hline
 Model & Accuracy & Precision (Macro) & Recall (Macro) & F1 Score (Macro) & ROC-AUC \\
 \hline
-DecisionTreeClassifier & 0.9994 & 0.9498 & 0.8648 & 0.9028 & 0.8614 \\
-RandomForestClassifier & 0.9995 & 0.9863 & 0.8648 & 0.9169 & 0.9362 \\
-GradientBoostingClassifier & 0.9994 & 0.9768 & 0.8513 & 0.9045 & 0.9483 \\
+DecisionTree & 0.9994 & 0.9498 & 0.8648 & 0.9028 & 0.8614 \\
+RandomForest & 0.9995 & 0.9863 & 0.8648 & 0.9169 & 0.9362 \\
+GradientBoosting & 0.9994 & 0.9768 & 0.8513 & 0.9045 & 0.9483 \\
 \hline
 \end{tabular}
 \caption{Model performance comparison on the test set.}
 \end{table}
-
-\subsection{Y Train/Test Proportions}
+    \item When analyzing this table there are a few things to note. For overall performance RandomForest seems to outperform most of the other models even though having a slightly lower ROC-AUC score than GradientBoosting. Gradient Boosting achieved the highest ROC-AUC, indicating that it has strong ranking performance, but its lower recall suggests it may be overfitting to patterns in the minority class without improving classification at all. 
 \begin{table}[h!]
 \centering
-\begin{tabular}{lcc}
-\hline
- & Class 0 & Class 1 \\
-\hline
-Train & 0.998273 & 0.001727 \\
-Test & 0.998268 & 0.001732 \\
-\hline
+\begin{tabular}{ccc}
+\includegraphics[width=0.35\textwidth]{Confusion_dt.png} &
+\includegraphics[width=0.35\textwidth]{Confusion_rf.png} &
+\includegraphics[width=0.35\textwidth]{Confusion_gb.png} \\
+Decision Tree & Random Forest & Gradient Boosting \\
 \end{tabular}
-\caption{Proportion of classes in train and test sets.}
+\caption{Confusion matrices for each model on the test set.}
 \end{table}
 
 \subsection{Classification Reports}
+
+Despite strong overall performance, all models exhibit relatively low recall for the minority class (roughly 70 percent in their respective classification reports), indicating that a significant portion of positive cases are still misclassified. Even though each model achieved approximately 98–100 percent accuracy, this metric is skewed due to the heavy class imbalance. Therefore, I focus on the macro-averaged F1 score, which gives more weight to the minority class and provides a balance between precision and recall. While performance could be further improved with more minority class samples, the models overall perform well despite the challenging imbalance.
+
 \textbf{DecisionTreeClassifier}
 \begin{table}[h!]
 \centering
@@ -89,6 +164,7 @@ Weighted avg & 1.00 & 1.00 & 1.00 & 85443 \\
 \end{tabular}
 \caption{Classification report for DecisionTreeClassifier.}
 \end{table}
+\FloatBarrier % Add this before the conclusion
 
 \textbf{RandomForestClassifier}
 \begin{table}[h!]
@@ -107,7 +183,7 @@ Weighted avg & 1.00 & 1.00 & 1.00 & 85443 \\
 \end{tabular}
 \caption{Classification report for RandomForestClassifier.}
 \end{table}
-
+\FloatBarrier % Add this before the conclusion
 \textbf{GradientBoostingClassifier}
 \begin{table}[h!]
 \centering
@@ -125,10 +201,14 @@ Weighted avg & 1.00 & 1.00 & 1.00 & 85443 \\
 \end{tabular}
 \caption{Classification report for GradientBoostingClassifier.}
 \end{table}
+\end{itemize}
+
+
+\FloatBarrier % Add this before the conclusion
+
 
 \section{Conclusion}
-Summarize the findings and any observations. Discuss model selection or insights.
-
+In conclusion, the best model for this dataset is the \texttt{RandomForestClassifier} due to its robustness and strong generalization to the minority class. Notably, it achieved a high macro F1-score, favorable confusion matrix results, and a strong ROC-AUC score. Additionally, the training time was only 1.04 seconds, significantly faster than the 435 seconds required by Gradient Boosting. Based on these results, I can confidently recommend the \texttt{RandomForestClassifier} as it provides the best balance between performance, interpretability, and computational efficiency for this task. Future work could include: feature importance selection to find what key predictors contribute to the minority class and or resampling techniques.
 \section{Disclaimers}
 \begin{itemize}
     \item All code and analysis are available in the Jupyter notebook (\texttt{hw7.ipynb}).
