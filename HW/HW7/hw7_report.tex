@@ -142,7 +142,12 @@ Decision Tree & Random Forest & Gradient Boosting \\
 \end{tabular}
 \caption{Confusion matrices for each model on the test set.}
 \end{table}
-
+\subsection{Training Time}
+\begin{itemize}
+    \item DecisionTreeClassifer: 2.3311 seconds
+    \item RandomForestClassifier: 1.0419 seconds
+    \item GradientBoostingClassifier: 435.6525 seconds
+\end{itemize}
 \subsection{Classification Reports}
 
 Despite strong overall performance, all models exhibit relatively low recall for the minority class (roughly 70 percent in their respective classification reports), indicating that a significant portion of positive cases are still misclassified. Even though each model achieved approximately 98–100 percent accuracy, this metric is skewed due to the heavy class imbalance. Therefore, I focus on the macro-averaged F1 score, which gives more weight to the minority class and provides a balance between precision and recall. While performance could be further improved with more minority class samples, the models overall perform well despite the challenging imbalance.
