@@ -3,4 +3,4 @@ Project\PartI_dev.csv
 PartI_dev.csv
 PartII_dev.csv
 
-Project/rf_part1_model.joblib
+*.joblib
